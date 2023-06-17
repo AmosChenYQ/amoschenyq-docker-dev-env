@@ -1,0 +1,19 @@
+docker run -it -d --rm --name=amoschenyq-nv-tf-dev --gpus=all -p 10100:100 -p 10110:110 -p 10120:120 \
+    --env HOST_PERMS="$(id -u):$(id -g)" \
+    --env TERM="xterm-256color" \
+    --mount type=bind,source="/home/amoschenyq/clash-dir",target="/clash-dir" \
+    --mount type=bind,source="/data/amoschenyq/short-scripts/docker-hosts",target="/etc/hosts" \
+    --mount type=bind,source="/data/amoschenyq/nvidia-tensorflow",target="/root/nvidia-tensorflow" \
+    --mount type=bind,source="/data/amoschenyq/models",target="/root/models" \
+    --mount type=bind,source="/data/amoschenyq/train-data/",target="/root/data" \
+    --mount type=bind,source="/data/amoschenyq/cudnn-frontend",target="/root/cudnn-frontend" \
+    --mount type=bind,source="/data/amoschenyq/docker-root/nvidia-tensorflow/cache",target="/root/.cache" \
+    --mount type=bind,source="/data/amoschenyq/docker-root/nvidia-tensorflow/keras",target="/root/.keras" \
+    --mount type=bind,source="/data/amoschenyq/docker-root/nvidia-tensorflow/nv",target="/root/.nv" \
+    --mount type=bind,source="/data/amoschenyq/docker-root/nvidia-tensorflow/src-nexus",target="/root/src-nexus" \
+    --mount type=bind,source="/data/amoschenyq/docker-root/nvidia-tensorflow/scripts",target="/root/scripts" \
+    --mount type=bind,source="/home/amoschenyq/.tmux.conf",target="/root/.tmux.conf" \
+    --mount type=bind,source="/home/amoschenyq/.vimrc",target="/root/.vimrc" \
+    --mount type=bind,source="/home/amoschenyq/.vim",target="/root/.vim" \
+    --mount type=bind,source="/home/amoschenyq/.inputrc",target="/root/.inputrc" \
+    --cap-add=SYS_PTRACE amosasas/tensorflow:nv-tf1.15-cuda11.4 /bin/bash
